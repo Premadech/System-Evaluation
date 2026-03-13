@@ -1,0 +1,13 @@
+openai
+PyMuPDF
+FastAPI
+pydantic
+passlib
+google-genai
+python-multipart
+uvicorn
+sqlalchemy 
+passlib[bcrypt] 
+python-jose
+cryptography
+python-dotenv
