@@ -20,7 +20,7 @@ const RegisterPage = () => {
 
       if (response.ok) {
         alert('สมัครสมาชิกสำเร็จ!');
-        navigate('/login'); // ✅ เด้งไปหน้า Login อัตโนมัติ
+        navigate('/login');
       } else {
         const error = await response.json();
         alert(error.detail || 'สมัครสมาชิกไม่สำเร็จ');

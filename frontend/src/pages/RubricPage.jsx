@@ -183,7 +183,7 @@ const RubricPage = () => {
       });
 
       if (res.ok) {
-        alert("✅ บันทึกเป็นเวอร์ชันใหม่เรียบร้อยแล้ว!");
+        alert("บันทึกเป็นเวอร์ชันใหม่เรียบร้อยแล้ว!");
         setIsEditing(false);
         fetchAllRubrics();
       }
@@ -239,7 +239,7 @@ const RubricPage = () => {
       <div className="flex flex-col xl:flex-row gap-8 max-w-[1600px] mx-auto px-6 animate-in fade-in duration-500">
 
         {/* ========================================== */}
-        {/* 📚 Sidebar: Version History */}
+        {/* Sidebar: Version History */}
         {/* ========================================== */}
         <div className="w-full xl:w-72 shrink-0 space-y-6">
           <div className="flex items-center gap-3">
@@ -306,7 +306,7 @@ const RubricPage = () => {
         </div>
 
         {/* ========================================== */}
-        {/* 📝 Main Content: Rubric Editor */}
+        {/* Main Content: Rubric Editor */}
         {/* ========================================== */}
         <div className="flex-1 space-y-8 min-w-0">
 
@@ -348,7 +348,7 @@ const RubricPage = () => {
               {isEditing && (
                 <div className="bg-[#EBF3FF] border border-[#B3D4FF] text-[#0052FF] p-4 rounded-xl flex items-center gap-3 animate-in fade-in">
                   <Info size={20} className="shrink-0" />
-                  <p className="text-sm font-medium">✏️ <b>คุณกำลังอยู่ในโหมดแก้ไข:</b> สามารถคลิกและพิมพ์แก้ไขข้อความในตารางด้านล่างได้เลย เมื่อเสร็จแล้วกด Save Changes (ระบบจะสร้างเป็นเวอร์ชันใหม่ให้)</p>
+                  <p className="text-sm font-medium"><b>คุณกำลังอยู่ในโหมดแก้ไข:</b> สามารถคลิกและพิมพ์แก้ไขข้อความในตารางด้านล่างได้เลย เมื่อเสร็จแล้วกด Save Changes (ระบบจะสร้างเป็นเวอร์ชันใหม่ให้)</p>
                 </div>
               )}
 

@@ -31,9 +31,9 @@ app.add_middleware(
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-# ==========================================
-# 🔐 ระบบรักษาความปลอดภัย API Key
-# ==========================================
+# ===========================
+# ระบบรักษาความปลอดภัย API Key
+# ===========================
 SECRET_KEY = os.getenv("SECRET_KEY")
 cipher_suite = Fernet(SECRET_KEY)
 
@@ -53,9 +53,9 @@ MINERU_API_TOKEN = os.getenv("API_KEY")
 
 TEMP_FILES = {}
 
-# ==========================================
-# 🧠 ระบบแก้คำเพี้ยน (OCR Fixer)
-# ==========================================
+# ============
+# ระบบแก้คำเพี้ยน 
+# ============
 def fix_thai_text(text):
     if not text:
         return ""
@@ -116,12 +116,12 @@ def extract_text_pymupdf_advanced(content):
                     md_content += block_text + "\n\n"
         return fix_thai_text(md_content)
     except Exception as e:
-        print(f"❌ PyMuPDF Error: {e}")
+        print(f"PyMuPDF Error: {e}")
         return ""
 
-# ==========================================
-# 🗄️ การตั้งค่า Database & Dynamic Rubrics
-# ==========================================
+# ==================================
+# การตั้งค่า Database & Dynamic Rubrics
+# ==================================
 def init_db():
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
@@ -157,7 +157,7 @@ def init_db():
             with open('rubric.json', 'r', encoding='utf-8') as f:
                 data = f.read()
                 cursor.execute("INSERT INTO rubrics (title, version, rubric_data) VALUES (?, ?, ?)", ("สอบเค้าโครง (Proposal)", 1, data))
-                print("✅ นำเข้าข้อมูล Rubric เดิมเข้าสู่ Database สำเร็จ!")
+                print("นำเข้าข้อมูล Rubric เดิมเข้าสู่ Database สำเร็จ!")
         except FileNotFoundError:
             pass
             
@@ -206,9 +206,9 @@ async def login(username: str = Form(...), password: str = Form(...)):
         raise HTTPException(status_code=400, detail="อีเมลหรือรหัสผ่านไม่ถูกต้อง")
     return {"access_token": username, "token_type": "bearer", "role": record[1] if record[1] else "student"}
 
-# ==========================================
-# 📊 API สำหรับจัดการ Dynamic Rubrics
-# ==========================================
+# ==============================
+# API สำหรับจัดการ Dynamic Rubrics
+# ==============================
 @app.get("/rubrics")
 async def get_all_rubrics():
     conn = sqlite3.connect('database.db')
@@ -377,7 +377,7 @@ async def evaluate_check_mineru(batch_id: str):
                         txt = extract_text_pymupdf_advanced(content) if content else ""
                         return {"status": "completed", "text": txt, "zip_url": ""}
     except Exception as e:
-        print(f"🚨 Polling Error: {e}")
+        print(f"Polling Error: {e}")
         
     return {"status": "processing"}
 
@@ -393,7 +393,7 @@ async def evaluate_run_ai(
 ):
     selected_models = json.loads(models)
     if not extracted_text:
-        extracted_text = "🚨 ไม่พบเนื้อหาข้อความ"
+        extracted_text = "ไม่พบเนื้อหาข้อความ"
 
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
@@ -483,7 +483,7 @@ async def evaluate_run_ai(
         }}"""
         
         try:
-            print(f"🤖 กำลังส่งให้ {m_alias} ประเมิน...")
+            print(f"กำลังส่งให้ {m_alias} ประเมิน...")
             response = client.chat.completions.create(
                 model=m_id,
                 messages=[{"role": "user", "content": prompt}],
@@ -493,7 +493,7 @@ async def evaluate_run_ai(
             raw_content = response.choices[0].message.content
             
             if raw_content.strip().startswith("<!DOCTYPE") or "<html" in raw_content.lower():
-                print(f"⚠️ {m_alias} แจ้งเตือน: เซิร์ฟเวอร์ต้นทาง (KKU Gateway) ปิดปรับปรุง หรือขัดข้อง (พบ HTML)")
+                print(f"{m_alias} แจ้งเตือน: เซิร์ฟเวอร์ต้นทาง (KKU Gateway) ปิดปรับปรุง หรือขัดข้อง (พบ HTML)")
                 continue
                 
             clean_content = raw_content.replace("```json", "").replace("```", "").strip()
@@ -511,10 +511,10 @@ async def evaluate_run_ai(
                 })
             
         except json.JSONDecodeError:
-            print(f"🚨 {m_alias} ส่งข้อมูลกลับมาผิดรูปแบบ (ไม่ใช่ JSON) ทำการข้าม...")
+            print(f"{m_alias} ส่งข้อมูลกลับมาผิดรูปแบบ (ไม่ใช่ JSON) ทำการข้าม...")
             continue
         except Exception as e:
-            print(f"🚨 ❌ {m_alias} เกิดข้อผิดพลาด: {str(e)} ทำการข้าม...")
+            print(f"{m_alias} เกิดข้อผิดพลาด: {str(e)} ทำการข้าม...")
             continue
 
     conn = sqlite3.connect('database.db')
@@ -551,9 +551,9 @@ async def get_history(email: str):
         "rubric_version": r[6] or 1
     } for r in rows]
 
-# ==========================================
-# 👨‍🏫 API สำหรับหน้า Dashboard ของอาจารย์
-# ==========================================
+# ================================
+# API สำหรับหน้า Dashboard ของอาจารย์
+# ================================
 @app.get("/teacher/history/all")
 async def get_all_history(teacher_email: str):
     conn = sqlite3.connect('database.db')

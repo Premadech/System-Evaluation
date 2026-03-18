@@ -9,7 +9,6 @@ const ApiSettingModal = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false);
   const userEmail = localStorage.getItem('access_token');
 
-  // โหลดค่าจาก Backend เมื่อเปิด Modal
   useEffect(() => {
     if (isOpen && userEmail) {
       fetch(`${import.meta.env.VITE_API_URL}/api-settings/${userEmail}`)
@@ -17,7 +16,7 @@ const ApiSettingModal = ({ isOpen, onClose }) => {
         .then(data => {
           setSettings({
             base_url: data.base_url || 'https://gen.ai.kku.ac.th/api/v1',
-            api_key: data.has_key ? '********' : '' // โชว์แค่ดอกจันถ้ามีของเดิมอยู่แล้ว
+            api_key: data.has_key ? '********' : ''
           });
         })
         .catch(err => console.error(err));
@@ -44,7 +43,7 @@ const ApiSettingModal = ({ isOpen, onClose }) => {
       });
 
       if (res.ok) {
-        alert("✅ บันทึกและเข้ารหัส API Key ลงฐานข้อมูลเรียบร้อย!");
+        alert("บันทึกและเข้ารหัส API Key ลงฐานข้อมูลเรียบร้อย!");
         onClose();
       } else {
         alert("เกิดข้อผิดพลาดในการบันทึก");
@@ -77,10 +76,9 @@ const ApiSettingModal = ({ isOpen, onClose }) => {
               เพื่อป้องกันการเข้าถึงจากบุคคลที่สาม
             </p>
 
-            {/* ✨ เพิ่มกล่องลิ้งค์แนะนำวิธีการขอรับ API ตรงนี้ ✨ */}
             <div className="bg-blue-50 text-blue-800 p-4 rounded-xl text-sm border border-blue-100 inline-block w-full max-w-md text-left shadow-sm">
               <span className="font-bold flex items-center gap-2 mb-1">
-                💡 วิธีการขอรับ API Key
+                วิธีการขอรับ API Key
               </span>
               สามารถขอรับได้จากเว็บ KKU IntelSphere API ผ่านลิ้งค์ด้านล่างนี้:<br />
               <a

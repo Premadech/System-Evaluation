@@ -6,14 +6,14 @@ const LoginPage = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [loading, setLoading] = useState(false);
 
-  // --- จุดที่ 1: แก้ไขฟังก์ชัน handleSubmit ให้ส่งข้อมูลจริง ---
+  // แก้ไขฟังก์ชัน handleSubmit ให้ส่งข้อมูลจริง
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
+
     // FastAPI ต้องการรูปแบบ Form Data สำหรับการ Login
     const data = new URLSearchParams();
-    data.append('username', formData.email); 
+    data.append('username', formData.email);
     data.append('password', formData.password);
 
     try {
@@ -27,13 +27,10 @@ const LoginPage = () => {
         const result = await response.json();
         // เก็บ Token ลงเครื่องเพื่อใช้ยืนยันตัวตนในหน้าอื่นๆ
         localStorage.setItem('access_token', result.access_token);
-        
-        // ✨ --- แทรกบรรทัดนี้เพิ่มเข้าไป --- ✨
         localStorage.setItem('role', result.role);
-        // ------------------------------------
 
         alert('เข้าสู่ระบบสำเร็จ!');
-        window.location.href = '/dashboard'; // ไปที่หน้า Dashboard
+        window.location.href = '/dashboard';
       } else {
         const errorData = await response.json();
         alert(errorData.detail || 'อีเมลหรือรหัสผ่านผิดครับ');
@@ -49,17 +46,16 @@ const LoginPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-[#F8F9FA] font-sans text-black">
       <div className="bg-white p-10 rounded-lg shadow-sm border border-gray-200 w-full max-w-[450px]">
         <h1 className="text-3xl font-bold mb-8 text-left">Sign in</h1>
-        
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
             <label className="text-sm font-medium text-gray-700">KKU-mail</label>
-            <input 
-              type="email" 
-              required 
+            <input
+              type="email"
+              required
               placeholder="your@email.com"
               className="w-full px-4 py-3 bg-[#F8F9FA] border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-black transition"
-              // --- จุดที่ 2: เพิ่ม onChange เพื่อเก็บค่าที่พิมพ์ลง State ---
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
           </div>
 
@@ -68,13 +64,12 @@ const LoginPage = () => {
               <label className="text-sm font-medium text-gray-700">Password</label>
               <a href="#" className="text-xs text-gray-500 hover:underline font-medium">Forgot your password?</a>
             </div>
-            <input 
-              type="password" 
-              required 
+            <input
+              type="password"
+              required
               placeholder="••••••••"
               className="w-full px-4 py-3 bg-[#F8F9FA] border border-gray-200 rounded-md focus:outline-none focus:ring-1 focus:ring-black transition"
-              // --- จุดที่ 2: เพิ่ม onChange สำหรับ Password ---
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
             />
           </div>
 
@@ -83,8 +78,8 @@ const LoginPage = () => {
             <label htmlFor="remember" className="text-sm text-gray-600 cursor-pointer">Remember me</label>
           </div>
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={loading}
             className="w-full bg-black text-white py-3 rounded-md font-bold hover:bg-gray-800 transition shadow-md active:scale-[0.98]"
           >

@@ -101,7 +101,6 @@ const HistoryPage = () => {
               <p className="text-blue-600 font-bold text-xs uppercase tracking-widest">
                 {new Date(selectedItem.date).toLocaleString()}
               </p>
-              {/* ✨ แสดง Badge เลขเวอร์ชันในหน้า Detail */}
               <span className="bg-blue-100 text-blue-800 text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-widest border border-blue-200">
                 Rubric V.{selectedItem.rubric_version || 1}
               </span>
@@ -227,7 +226,6 @@ const HistoryPage = () => {
                   <td className="p-6 text-gray-500 text-xs font-medium">
                     <div className="flex flex-col gap-1.5 items-start">
                       <span className="truncate max-w-[200px] text-gray-800 font-bold">{item.filename}</span>
-                      {/* ✨ แสดง Badge เลขเวอร์ชันใต้ชื่อไฟล์ */}
                       <span className="w-max bg-blue-50 text-blue-700 border border-blue-200 text-[9px] px-2 py-0.5 rounded-full font-black uppercase tracking-widest">
                         Rubric V.{item.rubric_version || 1}
                       </span>

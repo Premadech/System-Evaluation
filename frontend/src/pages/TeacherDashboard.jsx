@@ -107,7 +107,7 @@ const TeacherDashboard = () => {
             item.student_email,
             `"${item.filename}"`,
             item.project_type,
-            `V.${item.rubric_version || 1}`, // เพิ่มลงในไฟล์ CSV ด้วย
+            `V.${item.rubric_version || 1}`, // เพิ่มลงในไฟล์ CSV 
             new Date(item.date).toLocaleString('th-TH'),
             item.avg_score
         ]);
@@ -148,7 +148,6 @@ const TeacherDashboard = () => {
                             <p><b>File:</b> {selectedItem.filename}</p>
                             <div className="flex items-center gap-4">
                                 <p><b>Date:</b> {new Date(selectedItem.date).toLocaleString('th-TH')}</p>
-                                {/* ✨ แสดง Badge เลขเวอร์ชันในหน้า Detail */}
                                 <span className="inline-block bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest border border-blue-200">
                                     Rubric V.{selectedItem.rubric_version || 1}
                                 </span>
@@ -272,7 +271,6 @@ const TeacherDashboard = () => {
                                                 <FileText size={16} className="text-blue-500 shrink-0" />
                                                 <span className="truncate max-w-[200px]" title={item.filename}>{item.filename}</span>
                                             </div>
-                                            {/* ✨ แสดง Badge เลขเวอร์ชันใต้ชื่อไฟล์ */}
                                             <div className="flex items-center gap-2 mt-1">
                                                 <span className="text-[10px] font-black uppercase tracking-widest text-blue-700 bg-blue-50 border border-blue-200 px-2 py-1 rounded-full w-max">
                                                     Rubric V.{item.rubric_version || 1}

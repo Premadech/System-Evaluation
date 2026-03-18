@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { jwtDecode } from "jwt-decode";
-import { Home, History, FileText, Settings, LogOut, User, Bookmark, Users } from 'lucide-react'; // ✨ เพิ่ม Users icon
+import { Home, History, FileText, Settings, LogOut, User, Bookmark, Users } from 'lucide-react';
 import ApiSettingModal from '../components/ApiSettingModal';
 import EvaluationPage from './EvaluationPage';
 import HistoryPage from './HistoryPage';
 import RubricPage from './RubricPage';
-import TeacherDashboard from './TeacherDashboard'; // ✨ Import หน้าจออาจารย์
+import TeacherDashboard from './TeacherDashboard';
 
 const Dashboard = () => {
   const [userEmail, setUserEmail] = useState("Loading...");
@@ -98,7 +98,6 @@ const Dashboard = () => {
             <Bookmark size={20} /> <span className="text-sm">Rubric Criteria</span>
           </div>
 
-          {/* ✨ เมนูใหม่เฉพาะอาจารย์ (ดีไซน์ให้ดูแตกต่างเล็กน้อย) ✨ */}
           {userRole === 'teacher' && (
             <div
               onClick={() => setActiveMenu('teacher')}
@@ -125,7 +124,6 @@ const Dashboard = () => {
       <div className="flex-1 p-10 overflow-auto">
         {activeMenu === 'home' && renderHomeContent()}
 
-        {/* ซ่อนหน้า Evaluation ไว้แทนการ unmount เพื่อรักษา State ของ AI */}
         <div className={activeMenu === 'evaluation' ? 'block' : 'hidden'}>
           <EvaluationPage />
         </div>
@@ -133,7 +131,6 @@ const Dashboard = () => {
         {activeMenu === 'history' && <HistoryPage />}
         {activeMenu === 'rubric' && <RubricPage />}
 
-        {/* ✨ หน้า Dashboard ของอาจารย์ ✨ */}
         {activeMenu === 'teacher' && <TeacherDashboard />}
       </div>
 

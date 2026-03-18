@@ -377,7 +377,6 @@ const EvaluationPage = () => {
           ) : results && results.length === 0 ? (
 
             <div className="mt-8 p-10 bg-red-50 border-2 border-dashed border-red-200 rounded-[32px] text-center space-y-3">
-              {/* ย้ายคอมเมนต์เข้ามาใน div เรียบร้อยแล้วครับ! */}
               <AlertTriangle size={48} className="text-red-400 mx-auto" />
               <h3 className="text-xl font-black text-red-600 uppercase">Evaluation Failed</h3>
               <p className="text-red-500 font-medium text-sm">ไม่สามารถประเมินผลได้ กรุณากด 'Back to Edit' เพื่อตรวจสอบการตั้งค่า</p>
