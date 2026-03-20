@@ -83,17 +83,34 @@ const EvaluationPage = () => {
   const projectTypes = ['Web / Mobile App', 'Research', 'IoT & Hardware', 'Game'];
   const models = ['ChatGPT', 'Gemini', 'DeepSeek'];
 
-  useEffect(() => {
+  const loadRubricData = () => {
     fetch(`${import.meta.env.VITE_API_URL}/rubrics`)
       .then(res => res.json())
       .then(data => {
         setAvailableRubrics(data);
+
         if (data.length > 0) {
-          setSelectedRubricId(data[0].id);
-          fetchRubricDetail(data[0].id);
+          setSelectedRubricId(prevId => {
+            if (!prevId) {
+              fetchRubricDetail(data[0].id);
+              return data[0].id;
+            }
+            fetchRubricDetail(prevId);
+            return prevId;
+          });
         }
       })
       .catch(err => console.error("Error fetching rubrics:", err));
+  };
+
+  useEffect(() => {
+    loadRubricData();
+
+    window.addEventListener('focus', loadRubricData);
+
+    return () => {
+      window.removeEventListener('focus', loadRubricData);
+    };
   }, []);
 
   const fetchRubricDetail = (id) => {
